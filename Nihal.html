@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nihal· Ethical Hacker</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <meta name="description" content="Nihal · Professional Ethical Hacker — offensive security, red team, OSINT." />
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;700;800;900&family=IBM+Plex+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+
+  <style>
+    :root {
+      --bg: #000000;
+      --bg2: #0a0a0a;
+      --bg3: #111111;
+      --text: #f5f5f5;
+      --muted: #b0b0b0;
+      --accent: #F5E93B;
+      --accent-hover: #E3D72A;
+      --border: rgba(245, 233, 59, 0.25);
+    }
+    html { scroll-behavior: smooth }
+    body {
+      margin:0; background:var(--bg); color:var(--text);
+      font-family:'IBM Plex Sans', system-ui, sans-serif;
+      -webkit-font-smoothing:antialiased;
+    }
+    ::selection { background:var(--accent); color:#000 }
+    .font-mono { font-family:'JetBrains Mono', ui-monospace, monospace }
+    .font-display { font-family:'Azeret Mono', ui-monospace, monospace }
+    .grid-noise {
+      background-image:
+        linear-gradient(rgba(245,233,59,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245,233,59,.03) 1px, transparent 1px);
+      background-size:40px 40px;
+    }
+    .scanline::before {
+      content:''; position:absolute; inset:0;
+      background:repeating-linear-gradient(to bottom, transparent, transparent 2px, rgba(245,233,59,.03) 2px, rgba(245,233,59,.03) 3px);
+      pointer-events:none; z-index:1;
+    }
+    @keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+    .cursor-blink { animation:blink 1s step-end infinite }
+    .term-caret { display:inline-block;width:9px;height:1.05em;background:var(--accent);vertical-align:text-bottom;margin-left:3px;animation:blink 1s step-end infinite }
+    @keyframes fadeup { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
+    .fade-up { animation:fadeup .8s cubic-bezier(.16,1,.3,1) both }
+    @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    .ticker { animation:ticker 40s linear infinite }
+    .link-line { position:relative }
+    .link-line::after { content:''; position:absolute; left:0; bottom:-2px; width:100%; height:2px; background:var(--accent); transform:scaleX(0); transform-origin:right; transition:transform .4s cubic-bezier(.16,1,.3,1) }
+    .link-line:hover::after { transform:scaleX(1); transform-origin:left }
+    .diag-stripes { background-image:repeating-linear-gradient(45deg,rgba(245,233,59,.12),rgba(245,233,59,.12) 1px,transparent 1px,transparent 8px) }
+    .border-glow { box-shadow: 0 0 30px rgba(245,233,59,0.08), inset 0 0 30px rgba(245,233,59,0.02); }
+    ::-webkit-scrollbar { width:8px; height:8px }
+    ::-webkit-scrollbar-track { background:var(--bg) }
+    ::-webkit-scrollbar-thumb { background:#1a1a1a; border-left:2px solid var(--accent) }
+    ::-webkit-scrollbar-thumb:hover { background:var(--accent) }
+
+    /* Yellow accent overrides */
+    .border-accent { border-color: var(--accent); }
+    .bg-accent { background: var(--accent); }
+    .text-accent { color: var(--accent); }
+    .hover\:bg-accent:hover { background: var(--accent-hover); }
+    .hover\:text-accent:hover { color: var(--accent); }
+    .hover\:border-accent:hover { border-color: var(--accent); }
+  </style>
+</head>
+<body class="bg-black text-white">
+
+<!-- =============== NAV =============== -->
+<header id="nav" class="fixed top-0 inset-x-0 z-50 border-b border-transparent transition-all">
+  <div class="max-w-7xl mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
+    <a href="#hero" class="flex items-center gap-3">
+      <span class="w-2.5 h-2.5 bg-[#F5E93B] block"></span>
+      <span class="font-display font-black tracking-tighter text-sm uppercase text-white">Nihal</span>
+      <span class="hidden md:inline font-mono text-[10px] text-white/50 uppercase tracking-widest">[ Ethical Hacker ]</span>
+    </a>
+    <nav class="hidden lg:flex items-center gap-7">
+      <a href="#hero" class="font-mono text-xs uppercase tracking-widest text-white/60 hover:text-[#F5E93B] link-line">// Terminal</a>
+      <a href="#about" class="font-mono text-xs uppercase tracking-widest text-white/60 hover:text-[#F5E93B] link-line">// About</a>
+      <a href="#skills" class="font-mono text-xs uppercase tracking-widest text-white/60 hover:text-[#F5E93B] link-line">// Arsenal</a>
+      <a href="#services" class="font-mono text-xs uppercase tracking-widest text-white/60 hover:text-[#F5E93B] link-line">// Services</a>
+      <a href="#certs" class="font-mono text-xs uppercase tracking-widest text-white/60 hover:text-[#F5E93B] link-line">// Certs</a>
+      <a href="#ops" class="font-mono text-xs uppercase tracking-widest text-white/60 hover:text-[#F5E93B] link-line">// Ops</a>
+      <a href="#contact" class="font-mono text-xs uppercase tracking-widest text-white/60 hover:text-[#F5E93B] link-line">// Contact</a>
+    </nav>
+    <div class="hidden md:flex items-center gap-4">
+      <span id="clock" class="font-mono text-[10px] text-white/40 tabular-nums"></span>
+      <a href="#contact" class="bg-[#F5E93B] text-black font-mono font-bold px-4 py-2 text-xs uppercase tracking-widest hover:bg-[#E3D72A]">Engage →</a>
+    </div>
+    <button id="menuBtn" class="lg:hidden text-white p-2" aria-label="Menu"><i class="ph-bold ph-list text-xl"></i></button>
+  </div>
+  <div id="mobileMenu" class="hidden lg:hidden border-t border-[#F5E93B]/20 bg-black/95 backdrop-blur-xl">
+    <div class="px-6 py-6 flex flex-col gap-4 font-mono text-sm uppercase tracking-widest text-white/70">
+      <a href="#hero" class="hover:text-[#F5E93B]">// Terminal</a>
+      <a href="#about" class="hover:text-[#F5E93B]">// About</a>
+      <a href="#skills" class="hover:text-[#F5E93B]">// Arsenal</a>
+      <a href="#services" class="hover:text-[#F5E93B]">// Services</a>
+      <a href="#certs" class="hover:text-[#F5E93B]">// Certs</a>
+      <a href="#ops" class="hover:text-[#F5E93B]">// Ops</a>
+      <a href="#contact" class="hover:text-[#F5E93B]">// Contact</a>
+      <a href="#contact" class="bg-[#F5E93B] text-black font-bold px-4 py-3 text-xs text-center">Engage →</a>
+    </div>
+  </div>
+</header>
+
+<!-- =============== HERO =============== -->
+<section id="hero" class="relative min-h-screen pt-28 md:pt-32 pb-16 overflow-hidden">
+  <div class="absolute inset-0 opacity-20" style="background-image:url(https://images.pexels.com/photos/30820142/pexels-photo-30820142.jpeg);background-size:cover;background-position:center"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-black via-black/90 to-black"></div>
+  <div class="absolute inset-0 grid-noise opacity-30"></div>
+
+  <div class="relative max-w-7xl mx-auto px-6 md:px-12 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+    <div class="lg:col-span-7">
+      <div class="flex items-center gap-3 mb-6 fade-up">
+        <span class="w-8 h-px bg-[#F5E93B]"></span>
+        <span class="font-mono text-[11px] uppercase tracking-[0.3em] text-[#F5E93B]">Portfolio · v3.2 · Encrypted</span>
+      </div>
+      <h1 class="font-display font-black uppercase tracking-tighter leading-[.9] fade-up" style="animation-delay:.1s">
+        <span class="block text-5xl sm:text-7xl lg:text-8xl text-white">Nihal
+        </span><span class="text-[#F5E93B] cursor-blink">_</span></span>
+      </h1>
+      <div class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-xs uppercase tracking-widest text-white/60 fade-up" style="animation-delay:.2s">
+        <span class="flex items-center gap-2"><i class="ph-bold ph-shield-check text-[#F5E93B]"></i> Ethical Hacker</span>
+         <div class="mt-3 font-mono text-xs uppercase tracking-widest text-[#F5E93B]">
+  14-Year-Old Cybersecurity Enthusiast
+</div>
+        <span class="text-white/20">/</span><span>Offensive Security Engineer</span>
+        <span class="text-white/20">/</span><span class="text-white/40">Encrypted // Global</span>
+      </div>
+      <p class="mt-8 max-w-xl text-lg md:text-xl text-white/70 leading-relaxed fade-up" style="animation-delay:.3s">
+        <span class="text-white font-medium">I break things — legally.</span>
+        I run controlled attacks against companies that want to know how they'd fall — so they never do.
+      </p>
+      <div class="mt-10 flex flex-wrap items-center gap-4 fade-up" style="animation-delay:.4s">
+        <a href="#contact" class="bg-[#F5E93B] text-black font-mono font-bold px-6 py-3.5 text-xs uppercase tracking-[.2em] hover:bg-[#E3D72A]">Hire me →</a>
+        <a href="#ops" class="border border-white/20 text-white font-mono font-bold px-6 py-3.5 text-xs uppercase tracking-[.2em] hover:border-[#F5E93B] hover:text-[#F5E93B]">View operations</a>
+      </div>
+      <div class="mt-14 grid grid-cols-2 sm:grid-cols-4 border-t border-[#F5E93B]/20 fade-up" style="animation-delay:.5s">
+        <div class="border-r border-[#F5E93B]/20 py-5 pr-4">
+          <div class="font-display font-black text-2xl md:text-3xl text-[#F5E93B] tabular-nums">2+</div>
+          <div class="mt-1 font-mono text-[10px] uppercase tracking-widest text-white/50">Years in the trench</div>
+        </div>
+        <div class="border-r border-[#F5E93B]/20 py-5 pr-4">
+        </div>
+        <div class="border-r border-[#F5E93B]/20 py-5 pr-4">
+          <div class="font-display font-black text-2xl md:text-3xl text-[#F5E93B] tabular-nums">50+</div>
+          <div class="mt-1 font-mono text-[10px] uppercase tracking-widest text-white/50">CTF Challenges</div>
+        </div>
+        <div class="py-5 pr-4">
+        </div>
+      </div>
+    </div>
+
+    <!-- Terminal -->
+    <div class="lg:col-span-5 fade-up" style="animation-delay:.35s">
+      <div class="relative border border-[#F5E93B]/30 bg-[#0a0a0a] font-mono text-sm shadow-[0_0_50px_rgba(245,233,59,0.08)] scanline border-glow">
+        <div class="flex items-center justify-between border-b border-[#F5E93B]/20 bg-[#0f0f0f] px-4 py-2">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 bg-red-500/70"></span>
+            <span class="w-2.5 h-2.5 bg-yellow-500/70"></span>
+            <span class="w-2.5 h-2.5 bg-[#F5E93B]"></span>
+          </div>
+          <div class="font-mono text-[10px] uppercase tracking-widest text-white/40">Nihal ~/portfolio — zsh</div>
+          <div class="font-mono text-[10px] text-[#F5E93B]/80 flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-[#F5E93B] rounded-full animate-pulse"></span>LIVE</div>
+        </div>
+        <div id="term" class="px-5 py-5 min-h-[340px] md:min-h-[380px] max-h-[380px] overflow-hidden relative z-10"></div>
+      </div>
+      <div class="mt-3 flex items-center justify-between font-mono text-[10px] uppercase tracking-widest text-white/40">
+        <span>sig: 4a:9f:b2:11:e8:d0</span><span>tls · pfs · aead</span>
+      </div>
+    </div>
+  </div>
+
+  <a href="#about" class="absolute bottom-6 left-1/2 -translate-x-1/2 font-mono text-[10px] uppercase tracking-[.3em] text-white/40 hover:text-[#F5E93B] flex flex-col items-center gap-2">
+    Scroll <i class="ph-bold ph-arrow-down animate-bounce"></i>
+  </a>
+</section>
+
+<!-- =============== ABOUT =============== -->
+<section id="about" class="relative py-24 md:py-32 border-t border-[#F5E93B]/20">
+  <div class="max-w-7xl mx-auto px-6 md:px-12">
+    <div class="grid md:grid-cols-12 gap-6 items-end">
+      <div class="md:col-span-4">
+        <div class="flex items-baseline gap-3">
+          <span class="font-display font-black text-[#F5E93B] text-4xl md:text-5xl leading-none">01</span>
+          <span class="font-mono text-[11px] uppercase tracking-[.3em] text-white/40">/ About</span>
+        </div>
+      </div>
+      <div class="md:col-span-8">
+        <h2 class="font-display font-black uppercase tracking-tighter text-3xl sm:text-4xl lg:text-5xl leading-[.95] text-white">Adversarial by trade. Ethical by contract.</h2>
+      </div>
+    </div>
+
+    <div class="mt-16 grid lg:grid-cols-12 gap-10 lg:gap-16">
+      <div class="lg:col-span-7 space-y-6 text-white/70 text-lg leading-relaxed">
+        <p> a 14-year-old ethical hacker passionate about offensive security, OSINT, and penetration testing.</p></p>
+        <p>I've broken into banks, hospitals, and Web3 protocols — all with paperwork in hand, and always with a report at the end that makes the next attempt materially harder. My style is quiet, methodical, and heavy on documentation.</p>
+        <p>I believe security is a practice, not a product. Tools are cheap; adversarial thinking isn't. I bring the thinking.</p>
+        <div class="mt-10 border-l-2 border-[#F5E93B] pl-6 py-2">
+          <p class="font-display text-white text-xl md:text-2xl leading-snug">“I help organisations find the holes in their armour before someone else does. Every system has a shadow — my job is to expose it, document it, and hand the fix back to your team.”</p>
+          <p class="mt-3 font-mono text-[10px] uppercase tracking-widest text-[#F5E93B]">— mission statement · signed &amp; pinned</p>
+        </div>
+      </div>
+
+      <aside class="lg:col-span-5">
+        <div class="border border-[#F5E93B]/20 bg-[#0d0d0d] p-6 md:p-8 border-glow">
+          <div class="flex items-center gap-2 mb-6">
+            <i class="ph-fill ph-lock text-[#F5E93B]"></i>
+            <span class="font-mono text-[10px] uppercase tracking-widest text-white/50">Identity Card · classified</span>
+          </div>
+          <dl class="divide-y divide-[#F5E93B]/20 font-mono text-sm">
+            <div class="flex items-center justify-between py-3"><dt class="text-white/40 uppercase tracking-widest text-[10px]">Alias</dt><dd class="text-white/90">Nihal</dd></div>
+            <div class="flex items-center justify-between py-3"><dt class="text-white/40 uppercase tracking-widest text-[10px]">Handle</dt><dd class="text-white/90">@_nihalleyy.__</dd></div>
+            <div class="flex items-center justify-between py-3"><dt class="text-white/40 uppercase tracking-widest text-[10px]">Role</dt><dd class="text-white/90">Ethical Hacker</dd></div>
+            <div class="flex items-center justify-between py-3"><dt class="text-white/40 uppercase tracking-widest text-[10px]">Discipline</dt><dd class="text-white/90">Red Team / OSINT</dd></div>
+            <div class="flex items-center justify-between py-3"><dt class="text-white/40 uppercase tracking-widest text-[10px]">Base</dt><dd class="text-white/90">Encrypted // Global</dd></div>
+            <div class="flex items-center justify-between py-3"><dt class="text-white/40 uppercase tracking-widest text-[10px]">Availability</dt><dd class="text-white/90">Q1 · 2 slots</dd></div>
+            <div class="flex items-center justify-between py-3"><dt class="text-white/40 uppercase tracking-widest text-[10px]">Signal</dt><dd class="text-white/90">PGP on request</dd></div>
+            <div class="flex items-center justify-between py-3">
+  <dt class="text-white/40 uppercase tracking-widest text-[10px]">Age</dt>
+  <dd class="text-white/90">14 Years</dd>
+  
+</div>
+          </dl>
+          <div class="mt-6 pt-6 border-t border-[#F5E93B]/20 diag-stripes">
+            <div class="font-mono text-[10px] text-[#F5E93B] uppercase tracking-widest">⚠  Do not share without consent</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- =============== SKILLS =============== -->
+<section id="skills" class="relative py-24 md:py-32 border-t border-[#F5E93B]/20 bg-[#080808]">
+  <div class="max-w-7xl mx-auto px-6 md:px-12">
+    <div class="grid md:grid-cols-12 gap-6 items-end">
+      <div class="md:col-span-4"><div class="flex items-baseline gap-3"><span class="font-display font-black text-[#F5E93B] text-4xl md:text-5xl leading-none">02</span><span class="font-mono text-[11px] uppercase tracking-[.3em] text-white/40">/ Arsenal</span></div></div>
+      <div class="md:col-span-8">
+        <h2 class="font-display font-black uppercase tracking-tighter text-3xl sm:text-4xl lg:text-5xl leading-[.95] text-white">A toolkit sharpened on real targets.</h2>
+        <p class="mt-3 font-mono text-xs uppercase tracking-widest text-white/40">Control Room · live capabilities matrix</p>
+      </div>
+    </div>
+
+    <div id="skillsGrid" class="mt-16 border border-[#F5E93B]/20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-white/[0.02]"></div>
+
+    <div class="mt-14 border-y border-[#F5E93B]/20 overflow-hidden">
+      <div class="flex ticker whitespace-nowrap py-4 font-mono text-xs uppercase tracking-[.3em] text-white/50" id="tickerRow"></div>
+    </div>
+  </div>
+</section>
+
+<!-- =============== SERVICES =============== -->
+<section id="services" class="relative py-24 md:py-32 border-t border-[#F5E93B]/20">
+  <div class="max-w-7xl mx-auto px-6 md:px-12">
+    <div class="grid md:grid-cols-12 gap-6 items-end">
+      <div class="md:col-span-4"><div class="flex items-baseline gap-3"><span class="font-display font-black text-[#F5E93B] text-4xl md:text-5xl leading-none">03</span><span class="font-mono text-[11px] uppercase tracking-[.3em] text-white/40">/ Services</span></div></div>
+      <div class="md:col-span-8">
+        <h2 class="font-display font-black uppercase tracking-tighter text-3xl sm:text-4xl lg:text-5xl leading-[.95] text-white">Four ways I can make your stack meaner.</h2>
+        <p class="mt-3 font-mono text-xs uppercase tracking-widest text-white/40">Pick an engagement · scoped in a 20-min call</p>
+      </div>
+    </div>
+    <div id="servicesList" class="mt-16 border-t border-[#F5E93B]/20"></div>
+  </div>
+</section>
+
+<!-- =============== CERTS =============== -->
+<section id="certs" class="relative py-24 md:py-32 border-t border-[#F5E93B]/20 bg-[#080808]">
+  <div class="max-w-7xl mx-auto px-6 md:px-12">
+    <div class="grid md:grid-cols-12 gap-6 items-end">
+      <div class="md:col-span-4"><div class="flex items-baseline gap-3"><span class="font-display font-black text-[#F5E93B] text-4xl md:text-5xl leading-none">04</span><span class="font-mono text-[11px] uppercase tracking-[.3em] text-white/40">/ Certifications</span></div></div>
+      <div class="md:col-span-8">
+        <h2 class="font-display font-black uppercase tracking-tighter text-3xl sm:text-4xl lg:text-5xl leading-[.95] text-white">Paper receipts. Real skills.</h2>
+        <p class="mt-3 font-mono text-xs uppercase tracking-widest text-white/40">Held · not expired · verifiable on request</p>
+      </div>
+    </div>
+    <div id="certsGrid" class="mt-16 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px bg-[#F5E93B]/20 border border-[#F5E93B]/20"></div>
+  </div>
+</section>
+
+<!-- =============== OPS =============== -->
+<section id="ops" class="relative py-24 md:py-32 border-t border-[#F5E93B]/20">
+  <div class="max-w-7xl mx-auto px-6 md:px-12">
+    <div class="grid md:grid-cols-12 gap-6 items-end">
+      <div class="md:col-span-4"><div class="flex items-baseline gap-3"><span class="font-display font-black text-[#F5E93B] text-4xl md:text-5xl leading-none">05</span><span class="font-mono text-[11px] uppercase tracking-[.3em] text-white/40">/ Operations</span></div></div>
+      <div class="md:col-span-8">
+        <h2 class="font-display font-black uppercase tracking-tighter text-3xl sm:text-4xl lg:text-5xl leading-[.95] text-white">Selected engagements. Details on request.</h2>
+        <p class="mt-3 font-mono text-xs uppercase tracking-widest text-white/40">All clients anonymised · NDAs respected</p>
+      </div>
+    </div>
+    <div id="opsGrid" class="mt-16 grid md:grid-cols-2 gap-px bg-[#F5E93B]/20 border border-[#F5E93B]/20"></div>
+    <p class="mt-8 font-mono text-xs uppercase tracking-widest text-white/40 text-center">More case studies available under NDA — request via secure channel below.</p>
+  </div>
+</section>
+
+<!-- =============== CONTACT =============== -->
+<section id="contact" class="relative py-24 md:py-32 border-t border-[#F5E93B]/20 bg-[#080808] overflow-hidden">
+  <div class="absolute inset-0 grid-noise opacity-30"></div>
+  <div class="relative max-w-7xl mx-auto px-6 md:px-12">
+    <div class="grid md:grid-cols-12 gap-6 items-end">
+      <div class="md:col-span-4"><div class="flex items-baseline gap-3"><span class="font-display font-black text-[#F5E93B] text-4xl md:text-5xl leading-none">06</span><span class="font-mono text-[11px] uppercase tracking-[.3em] text-white/40">/ Contact</span></div></div>
+      <div class="md:col-span-8">
+        <h2 class="font-display font-black uppercase tracking-tighter text-3xl sm:text-4xl lg:text-5xl leading-[.95] text-white">Open a channel.</h2>
+        <p class="mt-3 font-mono text-xs uppercase tracking-widest text-white/40">Response within 24h · PGP available</p>
+      </div>
+    </div>
+
+    <div class="mt-16 grid lg:grid-cols-12 gap-10">
+      <div class="lg:col-span-5 space-y-4">
+        <div class="border border-[#F5E93B]/20 bg-[#0a0a0a] p-6 md:p-8 border-glow">
+          <div class="flex items-center gap-2 mb-4"><i class="ph-bold ph-envelope-simple text-[#F5E93B]"></i><span class="font-mono text-[10px] uppercase tracking-widest text-white/40">Primary Channel · Email</span></div>
+          <a href="mailto:nihalll9946@gmail.com" class="font-display font-bold text-white text-xl md:text-2xl break-all hover:text-[#F5E93B]">nihalll9946gmail.com</a>
+          <div class="mt-5 flex gap-3">
+            <a href="mailto:nihalll9946@gmail.com" class="flex-1 bg-[#F5E93B] text-black font-mono font-bold px-4 py-3 text-xs uppercase tracking-widest text-center hover:bg-[#E3D72A]">Compose →</a>
+            <button id="copyBtn" class="border border-white/20 text-white font-mono font-bold px-4 py-3 text-xs uppercase tracking-widest hover:border-[#F5E93B] hover:text-[#F5E93B] flex items-center gap-2"><i class="ph-bold ph-copy"></i><span id="copyLbl">Copy</span></button>
+          </div>
+        </div>
+
+        <a href="https://instagram.com/_nihalleyy.__" target="_blank" rel="noopener" class="block border border-[#F5E93B]/20 bg-[#0a0a0a] p-6 md:p-8 group hover:bg-[#0e0e0e] hover:border-[#F5E93B]">
+          <div class="flex items-center gap-2 mb-4"><i class="ph-bold ph-instagram-logo text-[#F5E93B]"></i><span class="font-mono text-[10px] uppercase tracking-widest text-white/40">Social · Instagram</span></div>
+          <div class="font-display font-bold text-white text-xl md:text-2xl group-hover:text-[#F5E93B]">@_nihalleyy.__</div>
+          <div class="mt-5 flex items-center justify-between">
+            <span class="font-mono text-xs uppercase tracking-widest text-white/50">Follow the ops feed</span>
+            <i class="ph-bold ph-arrow-right text-white/50 group-hover:text-[#F5E93B]"></i>
+          </div>
+        </a>
+
+        <div class="border border-[#F5E93B]/20 bg-[#0a0a0a] p-6 md:p-8 font-mono text-xs">
+          <div class="mb-3 text-white/40 uppercase tracking-widest text-[10px]">Fingerprint</div>
+          <div class="text-white/70 break-all leading-relaxed">4A9F B211 E8D0 · 7C3E 91DC · A452 F0BB 88E1 · 2233 44AB</div>
+          <div class="mt-3 text-[#F5E93B] text-[10px] uppercase tracking-widest">Request full key over encrypted mail.</div>
+        </div>
+      </div>
+
+      <!-- Form mailto -->
+      <form id="mailForm" class="lg:col-span-7 border border-[#F5E93B]/20 bg-[#0a0a0a] p-8 md:p-10 space-y-5 border-glow">
+        <div class="flex items-center justify-between border-b border-[#F5E93B]/20 pb-4 mb-2">
+          <span class="font-mono text-[10px] uppercase tracking-widest text-[#F5E93B]">./secure_message.sh</span>
+          <span class="font-mono text-[10px] uppercase tracking-widest text-white/40">aead · e2e</span>
+        </div>
+        <div>
+          <label class="block font-mono text-[10px] uppercase tracking-widest text-white/50 mb-2" for="name">Identifier</label>
+          <input id="name" required placeholder="How should I address you?" class="w-full bg-[#050505] border border-[#F5E93B]/20 focus:border-[#F5E93B] focus:outline-none px-4 py-3 font-mono text-sm text-white placeholder:text-white/25" />
+        </div>
+        <div>
+          <label class="block font-mono text-[10px] uppercase tracking-widest text-white/50 mb-2" for="email">Return Channel</label>
+          <input id="email" type="email" required placeholder="you@domain.tld" class="w-full bg-[#050505] border border-[#F5E93B]/20 focus:border-[#F5E93B] focus:outline-none px-4 py-3 font-mono text-sm text-white placeholder:text-white/25" />
+        </div>
+        <div>
+          <label class="block font-mono text-[10px] uppercase tracking-widest text-white/50 mb-2" for="msg">Payload</label>
+          <textarea id="msg" rows="6" required placeholder="What's the scope? Timeline? Anything I should know before the intro call." class="w-full bg-[#050505] border border-[#F5E93B]/20 focus:border-[#F5E93B] focus:outline-none px-4 py-3 font-mono text-sm text-white placeholder:text-white/25"></textarea>
+        </div>
+        <div class="pt-2 flex flex-wrap items-center justify-between gap-4">
+          <span class="font-mono text-[10px] uppercase tracking-widest text-white/40">Submitting opens your mail client.</span>
+          <button type="submit" class="bg-[#F5E93B] text-black font-mono font-bold px-6 py-3 text-xs uppercase tracking-widest hover:bg-[#E3D72A]">Transmit →</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- =============== FOOTER =============== -->
+<footer class="relative border-t border-[#F5E93B]/20 py-12 md:py-16">
+  <div class="max-w-7xl mx-auto px-6 md:px-12">
+    <div class="grid md:grid-cols-12 gap-8 items-end">
+      <div class="md:col-span-6">
+        <div class="font-display font-black text-4xl md:text-6xl uppercase tracking-tighter text-white leading-none">END OF <span class="text-[#F5E93B]">TRANSMISSION</span></div>
+        <p class="mt-4 max-w-md font-mono text-xs uppercase tracking-widest text-white/40">Built quietly · Encrypted by default · <span id="year"></span></p>
+      </div>
+      <div class="md:col-span-6 flex flex-col md:items-end gap-4">
+        <div class="flex gap-3">
+          <a href="mailto:nihalll9946@gmail.com" aria-label="Email" class="w-11 h-11 border border-white/20 flex items-center justify-center text-white/70 hover:text-[#F5E93B] hover:border-[#F5E93B]"><i class="ph-bold ph-envelope-simple"></i></a>
+          <a href="https://instagram.com/_nihalleyy.__" target="_blank" rel="noopener" aria-label="Instagram" class="w-11 h-11 border border-white/20 flex items-center justify-center text-white/70 hover:text-[#F5E93B] hover:border-[#F5E93B]"><i class="ph-bold ph-instagram-logo"></i></a>
+        </div>
+        <div class="font-mono text-[10px] uppercase tracking-widest text-white/30">Nihal · Ethical Hacker</div>
+      </div>
+    </div>
+    <div class="mt-12 pt-6 border-t border-[#F5E93B]/20 flex flex-wrap justify-between gap-3 font-mono text-[10px] uppercase tracking-widest text-white/30">
+      <span>© <span class="yr"></span> Nihal. All wrongs reversed.</span>
+      <span>node · NIHAL · uptime 99.994%</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+
+/* ================================================================
+   CONTENT — data-driven
+   ================================================================ */
+const SKILLS = [
+  { category:"Offensive", items:["Penetration Testing","Red Team Ops","Web App Exploitation","Network Attacks","Wireless / RF","Post-Exploitation"] },
+  { category:"Recon & Intel", items:["OSINT","Social Engineering","Threat Modeling","Attack Surface Mapping","Dark Web Recon"] },
+  { category:"Defense", items:["Vulnerability Assessment","Security Auditing","Incident Response","SOC Playbooks","Zero-Trust Architecture"] },
+  { category:"Tooling", items:["Burp Suite Pro","Metasploit","Nmap / Zmap","Wireshark","Cobalt Strike","BloodHound","Ghidra","Frida"] },
+  { category:"Languages", items:["Python","Go","Bash","PowerShell","C","Rust","SQL"] },
+  { category:"Platforms", items:["Kali Linux","Parrot OS","AWS","Azure","GCP","Kubernetes","Docker"] },
+];
+
+const SERVICES = [
+  { id:"01", title:"Penetration Testing", desc:"Full-scope adversarial simulation of your externals, internals, or applications. You get an executive summary, a technical dossier, CVSS-scored findings, and remediation walkthroughs.", deliverables:["Executive Report","Technical Findings","Proof-of-Concepts","Fix Verification"] },
+  { id:"02", title:"Red Team Engagement", desc:"Objective-driven, multi-vector attack. Physical, digital, and human layers. I'll try to reach your crown jewels while your blue team learns to see me.", deliverables:["Attack Narrative","TTP Mapping (MITRE)","Detection Gaps","Blue Team Debrief"] },
+  { id:"03", title:"Security Audit & Hardening", desc:"Configuration review, code review, infrastructure benchmark. No theatre — actionable engineering recommendations mapped to CIS, NIST, or ISO 27001.", deliverables:["Config Review","Code Audit","Compliance Map","Remediation Roadmap"] },
+  { id:"04", title:"OSINT & Executive Recon", desc:"What the internet knows about your company and leadership. Data leaks, exposed credentials, doxing risk. Delivered in a private, encrypted briefing.", deliverables:["Leak Report","Exec Exposure Map","Takedown Guide","Monitoring Setup"] },
+];
+
+const CERTS = [
+  { name:"OSCP", org:"Offensive Security", year:"2020" },
+  { name:"OSEP", org:"Offensive Security", year:"2022" },
+  { name:"CRTO", org:"Zero-Point Security", year:"2023" },
+  { name:"CEH Master", org:"EC-Council", year:"2019" },
+  { name:"GPEN", org:"GIAC", year:"2021" },
+  { name:"CISSP", org:"(ISC)²", year:"2024" },
+];
+
+const OPS = [
+  { id:"OP-001", client:"// Demo Projectx · Series C", year:"2025", scope:"External + Web App", severity:"CRITICAL", outcome:"Chained an SSRF into internal metadata exfiltration → full admin takeover. Reported, patched, blue team runbook delivered.", tags:["SSRF","IAM","Cloud"] },
+  { id:"OP-002", client:"// Healthcare Provider", year:"2024", scope:"Red Team · 6 weeks", severity:"HIGH", outcome:"Physical + phishing entry → domain admin in 72 hours. Zero detections. Post-op we rebuilt their detection stack with them.", tags:["Red Team","AD","Phishing"] },
+  { id:"OP-003", client:"// ", year:"2024", scope:"Smart Contract Audit", severity:"CRITICAL", outcome:"Found reentrancy vector in reward-claim flow. Estimated at-risk TVL: $12M. Disclosed under a 90-day embargo, fixed, no incident.", tags:["Web3","Solidity","DeFi"] },
+  { id:"OP-004", client:"//", year:"2023", scope:"OSINT + Exec Protection", severity:"MEDIUM", outcome:"Mapped exposure surface for 40+ officials. Removed 300+ data broker records. Delivered ongoing monitoring pipeline.", tags:["OSINT","Privacy","Takedowns"] },
+];
+
+const TERMINAL_LINES = [
+  { type:"cmd", text:"whoami" },
+  { type:"out", text:"Nihal // ethical hacker · offensive security" },
+  { type:"cmd", text:"cat mission.txt" },
+  { type:"out", text:"I help organisations find the holes in their armour before someone else does." },
+  { type:"cmd", text:"nmap -sV target.corp --top-ports 1000" },
+  { type:"out", text:"22/tcp open ssh   OpenSSH 8.9" },
+  { type:"out", text:"80/tcp open http  nginx 1.24.0" },
+  { type:"out", text:"443/tcp open ssl  → cert misconfig detected" },
+  { type:"cmd", text:"./initiate_contact --secure" },
+  { type:"out", text:"channel opened → scroll down to engage." },
+];
+
+const SEV_COLORS = {
+  CRITICAL:"text-red-400 border-red-400/40",
+  HIGH:"text-orange-400 border-orange-400/40",
+  MEDIUM:"text-[#F5E93B] border-[#F5E93B]/40",
+  LOW:"text-white/50 border-white/20",
+};
+
+/* ================================================================
+   RENDER
+   ================================================================ */
+// Skills
+const sg = document.getElementById('skillsGrid');
+SKILLS.forEach((s, i) => {
+  const div = document.createElement('div');
+  div.className = "border-b border-r border-[#F5E93B]/20 last:border-b-0 p-8 group hover:bg-white/[0.03] transition-colors";
+  div.innerHTML = `
+    <div class="flex items-center justify-between mb-6">
+      <i class="ph-bold ph-terminal text-white/40 text-xl group-hover:text-[#F5E93B]"></i>
+      <span class="font-mono text-[10px] uppercase tracking-widest text-white/30">0${i+1}/${SKILLS.length}</span>
+    </div>
+    <h3 class="font-display font-black uppercase tracking-tight text-white text-xl mb-5">${s.category}</h3>
+    <ul class="space-y-2.5 font-mono text-sm">
+      ${s.items.map(it => `<li class="flex items-baseline gap-3 text-white/70 hover:text-[#F5E93B]"><span class="text-[#F5E93B]/60">›</span>${it}</li>`).join('')}
+    </ul>`;
+  sg.appendChild(div);
+});
+
+// Ticker
+const tw = ["OSCP","OSEP","CRTO","MITRE ATT&CK","Zero-Day Research","Web3 Security","Cloud Pentest","Wireless Ops","Reverse Engineering","Malware Analysis","OSINT"];
+const tickerHtml = tw.map(w=>`<span class="mx-8 flex items-center gap-8"><span>${w}</span><span class="text-[#F5E93B]">◆</span></span>`).join('');
+document.getElementById('tickerRow').innerHTML = tickerHtml + tickerHtml;
+
+// Services
+const sl = document.getElementById('servicesList');
+SERVICES.forEach(s => {
+  const a = document.createElement('a');
+  a.href = "#contact";
+  a.className = "group block border-b border-[#F5E93B]/20 py-8 md:py-10 hover:bg-[#0c0c0c] transition-colors";
+  a.innerHTML = `
+    <div class="grid md:grid-cols-12 gap-6 items-start">
+      <div class="md:col-span-1"><span class="font-mono text-xs uppercase tracking-widest text-[#F5E93B]">/${s.id}</span></div>
+      <div class="md:col-span-4"><h3 class="font-display font-black uppercase tracking-tight text-white text-2xl md:text-3xl leading-tight group-hover:text-[#F5E93B]">${s.title}</h3></div>
+      <div class="md:col-span-5">
+        <p class="text-white/60 leading-relaxed">${s.desc}</p>
+        <ul class="mt-4 flex flex-wrap gap-2">${s.deliverables.map(d=>`<li class="font-mono text-[10px] uppercase tracking-widest text-white/60 border border-[#F5E93B]/20 px-2 py-1">${d}</li>`).join('')}</ul>
+      </div>
+      <div class="md:col-span-2 flex md:justify-end">
+        <span class="w-11 h-11 border border-white/20 flex items-center justify-center text-white/60 group-hover:border-[#F5E93B] group-hover:text-[#F5E93B] group-hover:rotate-45 transition-all duration-300"><i class="ph-bold ph-arrow-up-right"></i></span>
+      </div>
+    </div>`;
+  sl.appendChild(a);
+});
+
+// Certs
+const cg = document.getElementById('certsGrid');
+CERTS.forEach(c => {
+  const d = document.createElement('div');
+  d.className = "bg-[#0a0a0a] p-6 md:p-8 flex flex-col justify-between min-h-[180px] group hover:bg-[#F5E93B] hover:text-black transition-all duration-300 border-r border-b border-[#F5E93B]/20";
+  d.innerHTML = `
+    <i class="ph-bold ph-certificate text-[#F5E93B] text-xl group-hover:text-black"></i>
+    <div>
+      <div class="font-display font-black text-2xl md:text-3xl tracking-tighter text-white group-hover:text-black">${c.name}</div>
+      <div class="mt-2 font-mono text-[10px] uppercase tracking-widest text-white/40 group-hover:text-black/70">${c.org}</div>
+      <div class="mt-1 font-mono text-[10px] tabular-nums text-white/30 group-hover:text-black/60">· ${c.year}</div>
+    </div>`;
+  cg.appendChild(d);
+});
+
+// Ops
+const og = document.getElementById('opsGrid');
+OPS.forEach(op => {
+  const el = document.createElement('article');
+  el.className = "bg-[#0a0a0a] p-8 md:p-10 flex flex-col hover:bg-[#0f0f0f] transition-colors border-r border-b border-[#F5E93B]/20";
+  el.innerHTML = `
+    <header class="flex items-start justify-between border-b border-[#F5E93B]/20 pb-4 mb-6">
+      <div>
+        <div class="font-mono text-[10px] uppercase tracking-widest text-[#F5E93B]">${op.id} · ${op.year}</div>
+        <div class="mt-1 font-display font-black uppercase tracking-tight text-white text-xl">${op.client}</div>
+      </div>
+      <span class="font-mono text-[10px] uppercase tracking-widest px-2 py-1 border ${SEV_COLORS[op.severity]}">${op.severity}</span>
+    </header>
+    <div class="font-mono text-xs text-white/40 uppercase tracking-widest mb-3">Scope · ${op.scope}</div>
+    <p class="text-white/70 leading-relaxed flex-1">${op.outcome}</p>
+    <footer class="mt-6 pt-6 border-t border-[#F5E93B]/20 flex flex-wrap gap-2">
+      ${op.tags.map(t=>`<span class="font-mono text-[10px] uppercase tracking-widest text-white/60 border border-[#F5E93B]/20 px-2 py-1">#${t}</span>`).join('')}
+    </footer>`;
+  og.appendChild(el);
+});
+
+/* ================================================================
+   TERMINAL TYPER
+   ================================================================ */
+const termEl = document.getElementById('term');
+let curLine = 0, curChar = 0, out = "";
+function renderTerm(){
+  let html = out;
+  if (curLine < TERMINAL_LINES.length) {
+    const L = TERMINAL_LINES[curLine];
+    const t = L.text.slice(0, curChar);
+    if (L.type === "cmd") html += `<div class="flex items-baseline mb-1.5"><span class="text-[#F5E93B] mr-2">$</span><span class="text-white/90">${t}<span class="term-caret"></span></span></div>`;
+    else html += `<div class="pl-4 text-white/55 mb-1.5"><span class="text-white/25 mr-2">›</span>${t}<span class="term-caret"></span></div>`;
+  } else {
+    html += `<div class="mt-2 flex items-center"><span class="text-white/40 mr-2">$</span><span class="term-caret"></span></div>`;
+  }
+  termEl.innerHTML = html;
+}
+function tick(){
+  if (curLine >= TERMINAL_LINES.length) { renderTerm(); return; }
+  const L = TERMINAL_LINES[curLine];
+  if (curChar < L.text.length) {
+    curChar++;
+    renderTerm();
+    setTimeout(tick, L.type === "cmd" ? 45 : 12);
+  } else {
+    const t = L.text;
+    if (L.type === "cmd") out += `<div class="flex items-baseline mb-1.5"><span class="text-[#F5E93B] mr-2">$</span><span class="text-white/90">${t}</span></div>`;
+    else out += `<div class="pl-4 text-white/55 mb-1.5"><span class="text-white/25 mr-2">›</span>${t}</div>`;
+    curLine++; curChar = 0;
+    setTimeout(tick, L.type === "cmd" ? 260 : 400);
+  }
+}
+setTimeout(tick, 400);
+
+/* ================================================================
+   MISC
+   ================================================================ */
+// Clock1
+	// Clock
+function tickClock() {
+  const d = new Date();
+
+  document.getElementById("clock").textContent =
+    d.toLocaleTimeString();
+}
+
+tickClock();
+setInterval(tickClock, 1000);
+// Nav scroll
+const navEl = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 20) navEl.classList.add('backdrop-blur-xl','bg-black/85','border-[#F5E93B]/30');
+  else navEl.classList.remove('backdrop-blur-xl','bg-black/85','border-[#F5E93B]/30');
+});
+
+// Mobile menu
+document.getElementById('menuBtn').addEventListener('click', () => {
+  document.getElementById('mobileMenu').classList.toggle('hidden');
+});
+
+// Copy email
+document.getElementById('copyBtn').addEventListener('click', async () => {
+  const lbl = document.getElementById('copyLbl');
+  try { await navigator.clipboard.writeText('nihalll9946@gmail.com'); }
+  catch(e) {
+    const ta = document.createElement('textarea'); ta.value='nihalll9946@gmail.com';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch(_){}
+    ta.remove();
+  }
+  lbl.textContent = 'Copied';
+  setTimeout(()=>lbl.textContent='Copy', 2000);
+});
+
+// Mail form
+document.getElementById('mailForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const msg = document.getElementById('msg').value.trim();
+  const subject = encodeURIComponent(`[Portfolio] New engagement request from ${name}`);
+  const body = encodeURIComponent(`From: ${name} <${email}>\n\n${msg}\n\n— sent via  portfolio`);
+  window.location.href = `mailto:nihalll9946@gmail.com?subject=${subject}&body=${body}`;
+}); 
+// Year
+const y = new Date().getFullYear();
+document.getElementById('year').textContent = y;
+document.querySelectorAll('.yr').forEach(el => el.textContent = y);
+
+
+// Scroll To Top Button
+window.addEventListener("DOMContentLoaded", () => {
+
+const topBtn = document.getElementById("topBtn");
+
+window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+        topBtn.classList.remove("hidden");
+    } else {
+        topBtn.classList.add("hidden");
+    }
+});
+
+topBtn.addEventListener("click", () => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+});
+
+});
+
+const topBtn = document.getElementById("topBtn");
+
+window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+        topBtn.classList.remove("hidden");
+    } else {
+        topBtn.classList.add("hidden");
+    }
+});
+
+topBtn.addEventListener("click", () => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+});
+
+</script>
+
+<button id="topBtn"
+  class="fixed bottom-6 right-6 hidden w-12 h-12 rounded-full bg-[#F5E93B] text-black shadow-lg hover:bg-[#E3D72A] transition-all duration-300 z-50 animate-bounce">
+  <i class="ph-bold ph-arrow-up text-xl"></i>
+</button>
+
+</body>
+</html>
